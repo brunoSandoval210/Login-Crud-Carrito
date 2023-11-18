@@ -1,0 +1,231 @@
+/* Googlefont Poppins CDN Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  min-height: 100vh;
+}
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: 70px;
+  background: #5D718A;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+  
+}
+header .navbar{
+  height: 100%;
+  max-width: 1250px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  /* background: red; */
+  padding: 0 50px;
+}
+.navbar .logo a{
+  font-size: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+header .navbar .nav-links{
+  line-height: 70px;
+  height: 100%;
+}
+header .navbar .links{
+  display: flex;
+}
+header .navbar .links li{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0 14px;
+}
+header .navbar .links li a{
+  height: 100%;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+.links li:hover .habitacion-arrow,
+.links li:hover .salon-arrow,
+.links li:hover .categoria-arrow,
+.links li:hover .servicio-arrow,
+.links li:hover .usuario-arrow,
+.links li:hover .logout-arrow{
+  transform: rotate(180deg);
+  }
+
+header .navbar .links li .arrow{
+  /* background: red; */
+  height: 100%;
+  width: 22px;
+  line-height: 70px;
+  text-align: center;
+  display: inline-block;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+header .navbar .links li .sub-menu{
+  position: absolute;
+  top: 70px;
+  left: 0;
+  line-height: 40px;
+  background: #95BDBD;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 4px 4px;
+  display: none;
+  z-index: 2;
+}
+header .navbar .links li:hover .habitacion-sub-menu,
+header .navbar .links li:hover .salon-sub-menu,
+header .navbar .links li:hover .categoria-sub-menu,
+header .navbar .links li:hover .servicio-sub-menu,
+header .navbar .links li:hover .usuario-sub-menu,
+header .navbar .links li:hover .logout-sub-menu{
+  display: block;
+}
+.navbar .links li .sub-menu li{
+  padding: 0 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.navbar .links li .sub-menu a{
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.navbar .nav-links .sidebar-logo{
+  display: none;
+}
+.navbar .bx-menu{
+  display: none;
+}
+@media (max-width:920px) {
+  header .navbar{
+    max-width: 100%;
+    padding: 0 25px;
+  }
+
+  header .navbar .logo a{
+    font-size: 27px;
+  }
+  header .navbar .links li{
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+  header .navbar .links li a{
+    font-size: 15px;
+  }
+}
+@media (max-width:800px){
+  header{
+    /* position: relative; */
+  }
+  .navbar .bx-menu{
+    display: block;
+  }
+  header .navbar .nav-links{
+    position: fixed;
+    top: 0;
+    left: -100%;
+    display: block;
+    max-width: 270px;
+    width: 100%;
+    background:  #5D718A;
+    line-height: 40px;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    z-index: 1000;
+  }
+  .navbar .nav-links .sidebar-logo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidebar-logo .logo-name{
+    font-size: 25px;
+    color: #fff;
+  }
+    .sidebar-logo  i,
+    .navbar .bx-menu{
+      font-size: 25px;
+      color: #fff;
+    }
+  header .navbar .links{
+    display: block;
+    margin-top: 20px;
+  }
+  header .navbar .links li .arrow{
+    line-height: 40px;
+  }
+header .navbar .links li{
+    display: block;
+  }
+header .navbar .links li .sub-menu{
+  position: relative;
+  top: 0;
+  box-shadow: none;
+  display: none;
+}
+header .navbar .links li .sub-menu li{
+  border-bottom: none;
+
+}
+
+.links li:hover .habitacion-arrow,
+.links li:hover .salon-arrow,
+.links li:hover .categoria-arrow,
+.links li:hover .servicio-arrow,
+.links li:hover .usuario-arrow,
+.links li:hover .logout-arrow{
+  transform: rotate(0deg);
+  }
+  
+  header .navbar .links li:hover .habitacion-sub-menu,
+  header .navbar .links li:hover .salon-sub-menu,
+  header .navbar .links li:hover .categoria-sub-menu,
+  header .navbar .links li:hover .servicio-sub-menu,
+  header .navbar .links li:hover .usuario-sub-menu,
+  header .navbar .links li:hover .logout-sub-menu{
+    display: none;
+  }
+.navbar .nav-links.show1 .links .habitacion-sub-menu,
+  .navbar .nav-links.show2 .links .salon-sub-menu,
+  .navbar .nav-links.show3 .links .categoria-sub-menu,
+  .navbar .nav-links.show4 .links .servicio-sub-menu,
+  .navbar .nav-links.show5 .links .usuario-sub-menu,
+  .navbar .nav-links.show6 .links .logout-sub-menu
+  {
+      display: block;
+    }
+    .navbar .nav-links.show1 .links .habitacion-arrow,
+    .navbar .nav-links.show2 .links .salon-arrow,
+    .navbar .nav-links.show3 .links .categoria-arrow,
+    .navbar .nav-links.show4 .links .servicio-arrow,
+    .navbar .nav-links.show5 .links .usuario-arrow
+    .navbar .nav-links.show6 .links .logout-arrow{
+        transform: rotate(180deg);
+}
+    
+}
+@media (max-width:370px){
+  header .navbar .nav-links{
+  max-width: 100%;
+} 
+}

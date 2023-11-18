@@ -1,0 +1,26 @@
+.header-terminos {
+    background-color: #95BDBD;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.header-terminos h1 {
+    font-size: 24px;
+}
+
+.terminosYcondiciones {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.terminosYcondiciones p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}

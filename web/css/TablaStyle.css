@@ -1,0 +1,350 @@
+.container {
+    padding-top: 7rem;
+    display: flex; /* Usa display flex para alinear elementos horizontalmente */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: flex-start; /* Alinea los elementos en la parte superior verticalmente */
+}
+
+.container-table {
+    max-width: 1000px;
+    width: 70%; /* Ancho de la tabla */
+    margin-right: 5%; /* Margen a la derecha del contenedor de la tabla */
+}
+.table {
+    width: 100%;
+    border: 1px solid white;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    table-layout: auto; /* Cambia a table-layout: auto; */
+}
+.titulo{
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 8px 0px;
+}
+.table tr{
+    background-color: white;
+    border: 1px solid white;
+}
+.table th, .table td{
+    font-size: 12px;
+    padding: 2px;
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+.table thead th{
+    text-transform: uppercase;
+    background-color: white;  
+}
+.table tbody tr:hover{
+    background-color: #95BDBD;
+    color: white;
+}
+.table tbody th:hover{
+    background-color: #95BDBD;
+    color : white;
+}
+
+
+.buttonTabla {
+    background-color: #5D718A;
+    padding: 8px 16px; /* Aumenta el espacio alrededor del botón */
+    text-decoration: none;
+    color: #F4F4F4;
+    border-radius: 20px; /* Hace que el botón sea más redondo */
+    margin: 4px; /* Aumenta el espacio entre los botones */
+    display: inline-block; /* Coloca los botones en línea en lugar de apilados */
+    transition: background-color 0.3s;
+    width: auto; /* Ancho automático basado en el contenido */
+    text-align: center; /* Centra el contenido horizontalmente */
+}
+
+.buttonTabla.active {
+    background-color: #333050; /* Color de cambio cuando está activo */
+}
+
+.buttonTabla:hover {
+    background-color: #333;
+    transition: background-color 0.3s;
+}
+.servicioslista {
+    background-color: #5D718A;
+    padding: 2px 4px; /* Aumenta el espacio alrededor del botón */
+    text-decoration: none;
+    color: #F4F4F4;
+    border-radius: 20px; /* Hace que el botón sea más redondo */
+    margin: 0px; /* Aumenta el espacio entre los botones */
+    display: inline-block; /* Coloca los botones en línea en lugar de apilados */
+    transition: background-color 0.3s;
+    width: auto; /* Ancho automático basado en el contenido */
+    text-align: center; /* Centra el contenido horizontalmente */
+}
+.servicioslista:hover {
+    background-color: #333;
+    transition: background-color 0.3s;
+}
+@media screen and (max-width: 1200px) {
+    .container {
+        flex-direction: column; /* Cambia la dirección de flex a columna */
+        align-items: center; /* Centra verticalmente los elementos */
+    }
+
+    .container-table,
+    .form-container {
+        width: 100%; /* Ocupan el ancho completo cuando la pantalla es estrecha */
+        margin: 0; /* Sin márgenes en la parte superior e inferior */
+    }
+}
+
+@media screen and (max-width: 900px){
+    .table{
+        border: 0px;
+    }
+    .titulo{
+        font-size: 22px;
+    }
+    .table thead{
+        display: none;
+    }
+    .table tr{
+        border-bottom: 1px solid #000;
+        display: block;
+    }
+    .table th, .table td{
+        font-size: 12px;
+        
+    }
+    .table td{
+        display: block;
+        border-bottom: 1px solid white;
+        text-align: right;
+    }
+    .table td:last-child{
+        border-bottom: 0px;
+    }
+    .table td::before{
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        float: left;
+        
+    }
+
+}
+
+
+.dataTables_wrapper {
+    position: relative;
+    clear: both
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: left
+}
+
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    color: inherit;
+    padding: 4px
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    color: inherit;
+    margin-left: 3px
+}
+
+.dataTables_wrapper .dataTables_info {
+    clear: both;
+    float: left;
+    padding-top: .755em
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+    text-align: right;
+    padding-top: .25em
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: .5em 1em;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: inherit !important;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    background: transparent
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: inherit !important;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.05);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(230, 230, 230, 0.05)), color-stop(100%, rgba(0, 0, 0, 0.05)));
+    background: -webkit-linear-gradient(top, rgba(230, 230, 230, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%);
+    background: -moz-linear-gradient(top, rgba(230, 230, 230, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%);
+    background: -ms-linear-gradient(top, rgba(230, 230, 230, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%);
+    background: -o-linear-gradient(top, rgba(230, 230, 230, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%);
+    background: linear-gradient(to bottom, rgba(230, 230, 230, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%)
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    cursor: default;
+    color: #666 !important;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: 1px solid #111;
+    background-color: #111;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #111));
+    background: -webkit-linear-gradient(top, #585858 0%, #111 100%);
+    background: -moz-linear-gradient(top, #585858 0%, #111 100%);
+    background: -ms-linear-gradient(top, #585858 0%, #111 100%);
+    background: -o-linear-gradient(top, #585858 0%, #111 100%);
+    background: linear-gradient(to bottom, #585858 0%, #111 100%)
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+    outline: none;
+    background-color: #0c0c0c;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2b2b2b), color-stop(100%, #0c0c0c));
+    background: -webkit-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+    background: -moz-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+    background: -ms-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+    background: -o-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+    background: linear-gradient(to bottom, #2b2b2b 0%, #0c0c0c 100%);
+    box-shadow: inset 0 0 3px #111
+}
+
+.dataTables_wrapper .dataTables_paginate .ellipsis {
+    padding: 0 1em
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+    color: inherit
+}
+
+.dataTables_wrapper .dataTables_scroll {
+    clear: both
+}
+
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+    -webkit-overflow-scrolling: touch
+}
+
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>th,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>td,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>th,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>td {
+    vertical-align: middle
+}
+
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>th>div.dataTables_sizing,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>td>div.dataTables_sizing,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>th>div.dataTables_sizing,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>td>div.dataTables_sizing {
+    height: 0;
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3)
+}
+
+.dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable,
+.dataTables_wrapper.no-footer div.dataTables_scrollBody>table {
+    border-bottom: none
+}
+
+.dataTables_wrapper:after {
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0
+}
+
+@media screen and (max-width: 767px) {
+
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        float: none;
+        text-align: center
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: .5em
+    }
+}
+
+@media screen and (max-width: 640px) {
+  
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        float: none;
+        text-align: center
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+        margin-top: .5em
+    }
+}
+html.dark .dataTables_wrapper .dataTables_filter input,
+html.dark .dataTables_wrapper .dataTables_length select {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--dt-html-background)
+}
+
+html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    border: 1px solid rgb(89, 91, 94);
+    background: rgba(255, 255, 255, 0.15)
+}
+
+html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    color: #666 !important
+}
+
+html.dark .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    border: 1px solid rgb(53, 53, 53);
+    background: rgb(53, 53, 53)
+}
+
+html.dark .dataTables_wrapper .dataTables_paginate .paginate_button:active {
+    background: #3a3a3a
+}
+	
