@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,109 +28,46 @@ public class SvProducto extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String Op = request.getParameter("Op");
-        ArrayList<Producto> listaProductos = new ArrayList<>();
-        ConexionBD conexion = new ConexionBD();
-        Connection conn = conexion.Connected();
-        PreparedStatement ps;
-        ResultSet rs;
+        ProductoDao productoDAO = new ProductoDao();
 
         switch (Op) {
             case "Listar":
-                try {
-                    String sql = "SELECT * FROM producto";
-                    ps = conn.prepareStatement(sql);
-                    rs = ps.executeQuery();
+                List<Producto> listaProductos = productoDAO.listarProducto();
+                request.setAttribute("listaProductos", listaProductos);
+                request.getRequestDispatcher("listarProducto.jsp").forward(request, response);
 
-                    while (rs.next()) {
-                        Producto producto = new Producto();
-                        producto.setId(rs.getString("id"));
-                        producto.setDes(rs.getString("descripcion"));
-                        producto.setPre(rs.getDouble("precio"));
-                        producto.setSto(rs.getInt("stock"));
-                        listaProductos.add(producto);
-                    }
-
-                    request.setAttribute("listaProductos", listaProductos);
-                    request.getRequestDispatcher("listarProducto.jsp").forward(request, response);
-                } catch (SQLException ex) {
-                    System.out.println("Error de SQL: " + ex.getMessage());
-                } finally {
-                    conexion.Discconet();
-                }
                 break;
 
             case "Consultar":
-                try {
-                    String id = request.getParameter("id");
-                    String sql = "SELECT * FROM producto WHERE ID=?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, id);
-                    rs = ps.executeQuery();
-
-                    if (rs.next()) {
-                        Producto producto = new Producto();
-                        producto.setId(rs.getString("id"));
-                        producto.setDes(rs.getString("descripcion"));
-                        producto.setPre(rs.getDouble("precio"));
-                        producto.setSto(rs.getInt("stock"));
-                        request.setAttribute("producto", producto);
-                    }
-
-                    request.getRequestDispatcher("consultarProducto.jsp").forward(request, response);
-                } catch (SQLException ex) {
-                    System.out.println("Error de SQL: " + ex.getMessage());
-                } finally {
-                    conexion.Discconet();
-                }
+                String id = request.getParameter("id");
+                Producto productoConsulta = productoDAO.consultarProducto(id);
+                request.setAttribute("Lista", productoConsulta);
+                request.getRequestDispatcher("consultarProducto.jsp").forward(request, response);
                 break;
-
+            
             case "Nuevo":
-                // Lógica para mostrar la página de nuevo producto
                 request.getRequestDispatcher("SvProducto?Op=Listar").forward(request, response);
                 break;
-
+            
             case "Modificar":
-                try {
-                    String id = request.getParameter("id");
-                    String sql = "SELECT * FROM producto WHERE ID=?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, id);
-                    rs = ps.executeQuery();
-                    Producto producto = new Producto();
-                    if (rs.next()) {
-                        producto.setId(rs.getString("id"));
-                        producto.setDes(rs.getString("descripcion"));
-                        producto.setPre(rs.getDouble("precio"));
-                        producto.setSto(rs.getInt("stock"));
-                    }
-                    request.setAttribute("productoModificado", producto);
-                    request.getRequestDispatcher("SvProducto?Op=Listar").forward(request, response);
-                } catch (SQLException ex) {
-                    System.out.println("Error de SQL: " + ex.getMessage());
-                } finally {
-                    conexion.Discconet();
-                }
+                String idModificar = request.getParameter("id");
+                Producto productoModificar = productoDAO.consultarProducto(idModificar);                
+                request.setAttribute("productoModificado", productoModificar);
+                request.getRequestDispatcher("SvProducto?Op=Listar").forward(request, response);
+                
                 break;
-
+            
             case "Eliminar":
-                try {
-                    String id = request.getParameter("id");
-                    String sql = "DELETE FROM producto WHERE ID=?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, id);
-                    ps.executeUpdate();
-                    response.sendRedirect("SvProducto?Op=Listar");
-                } catch (SQLException ex) {
-                    System.out.println("Error de SQL: " + ex.getMessage());
-                } finally {
-                    conexion.Discconet();
-                }
+                String idEliminar = request.getParameter("id");
+                productoDAO.eliminarProducto(idEliminar);
+                response.sendRedirect("SvProducto?Op=Listar");
                 break;
-
+            
             default:
                 response.sendRedirect("SvProducto?op=listar");
                 break;
         }
+        productoDAO.cerrarConexion();
     }
 
     @Override

@@ -35,7 +35,10 @@
                             <a href="SvCliente?Op=Listar">Clientes</a>
                         </li>
                         <li>
-                            <a href="SvProducto?Op=Listar"">Productos</a>
+                            <a href="SvProducto?Op=Listar">Productos</a>
+                        </li>
+                        <li>
+                            <a href="SVPedido?Op=Listar">Pedido</a>
                         </li>
                         <li>
                             <a href="#">Log Out</a>

@@ -90,3 +90,16 @@ form .password i {
   }
 }
 
+.botonPeido{
+     background-color: #5D718A;
+    padding: 8px 16px; /* Aumenta el espacio alrededor del botón */
+    text-decoration: none;
+    color: #F4F4F4;
+    border-radius: 20px; /* Hace que el botón sea más redondo */
+    margin: 4px; /* Aumenta el espacio entre los botones */
+    display: inline-block; /* Coloca los botones en línea en lugar de apilados */
+    transition: background-color 0.3s;
+    width: auto; /* Ancho automático basado en el contenido */
+    text-align: center; /* Centra el contenido horizontalmente */
+    
+}

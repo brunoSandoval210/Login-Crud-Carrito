@@ -84,7 +84,7 @@
         </form>
         <%} else {%>
         <form action="SvCliente" method="post"> 
-            <h2>Modifica Usuario</h2>
+            <h2>Crear Cliente</h2>
             <input type="hidden" name="Id">
             <div class="form-group nombre">
                 <label for="Nombre">Nombre del cliente</label>
@@ -96,18 +96,18 @@
             </div>
             <div class="form-group dechaAlta">
                 <label for="Direccion">Direccion del cliente</label>
-                <input type="text" name="Direccion" placeholder="Ingrese la direccion del cliente" required>
+                <input type="text" name="Direccion" placeholder="Ingrese la direccion del cliente" required maxlength="25">
             </div>
             <div class="form-group dechaAlta">
                 <label for="Dni">Dni del cliente</label>
-                <input type="text" name="Dni" placeholder="Ingresa el dni del cliente" required>
+                <input type="text" name="Dni" placeholder="Ingresa el dni del cliente" required maxlength="8">
             </div>
             <div class="form-group dechaAlta">
                 <label for="Telefono">Telefono del cliente</label>
-                <input type="text" name="Telefono" placeholder="Ingresa el telefono del cliente" required>
+                <input type="text" name="Telefono" placeholder="Ingresa el telefono del cliente" required maxlength="9">
             </div>
             <div class="form-group submit-btn">
-                <input type="submit" name="Modificar">
+                <input type="submit" name="crear">
             </div>
         </form>
         <% }%>

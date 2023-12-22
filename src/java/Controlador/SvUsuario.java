@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "SvUsuario", urlPatterns = {"/SvUsuario"})
 public class SvUsuario extends HttpServlet {
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,98 +29,38 @@ public class SvUsuario extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String Op = request.getParameter("Op");
-        ArrayList<Usuario> Lista = new ArrayList<Usuario>();
-        ConexionBD conexion = new ConexionBD();
-        Connection conn = conexion.Connected();
-        PreparedStatement ps;
-        ResultSet rs;
+        UsuarioDao usuarioDAO = new UsuarioDao();
+
         switch (Op) {
             case "Listar":
-                try {
-                String sql = "select * from usuario";
-                ps = conn.prepareStatement(sql);
-                rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    Usuario usuario = new Usuario();
-                    usuario.setId(rs.getString("Id"));
-                    usuario.setNombre(rs.getString("Nombre"));
-                    usuario.setContrasena(rs.getString("Contrasena"));
-                    usuario.setIngreso(rs.getString("Ingreso"));
-                    Lista.add(usuario);
-                }
-                request.setAttribute("Lista", Lista);
+                List<Usuario> listaUsuarios = usuarioDAO.listarUsuarios();
+                request.setAttribute("Lista", listaUsuarios);
                 request.getRequestDispatcher("listarUsuario.jsp").forward(request, response);
-            } catch (SQLException ex) {
-                System.out.println("Error de SQL..." + ex.getMessage());
-            } finally {
-                conexion.Discconet();
-            }
             break;
             case "Consultar":
-                try {
-                String Id = request.getParameter("Id");
-                String sql = "select * from usuario where ID=?";
-                ps = conn.prepareStatement(sql);
-                ps.setString(1, Id);
-                rs = ps.executeQuery();
-                Usuario usuario = new Usuario();
-                while (rs.next()) {
-                    usuario.setId(rs.getString("Id"));
-                    usuario.setNombre(rs.getString("Nombre"));
-                    usuario.setContrasena(rs.getString("Contrasena"));
-                    usuario.setIngreso(rs.getString("Ingreso"));
-                   
-                }
-                request.setAttribute("Lista", usuario);
+                String IdConsulta = request.getParameter("Id");
+                Usuario usuarioConsulta = usuarioDAO.consultarUsuario(IdConsulta);
+                request.setAttribute("Lista", usuarioConsulta);
                 request.getRequestDispatcher("consultarUsuario.jsp").forward(request, response);
-            } catch (SQLException ex) {
-                System.out.println("Error de SQL..." + ex.getMessage());
-            } finally {
-                conexion.Discconet();
-            }
-            break;
+                break;
             case "Nuevo":
                 request.getRequestDispatcher("SvUsuario?Op=Listar").forward(request, response);
                 break;
             case "Modificar":
-                try {
-                String Id = request.getParameter("Id");
-                String sql = "select * from usuario where ID=?";
-                ps = conn.prepareStatement(sql);
-                ps.setString(1, Id);
-                rs = ps.executeQuery();
-                Usuario usuario = new Usuario();
-                while (rs.next()) {
-                    usuario.setId(rs.getString("Id"));
-                    usuario.setNombre(rs.getString("Nombre"));
-                    usuario.setContrasena(rs.getString("Contrasena"));
-                    usuario.setIngreso(rs.getString("Ingreso"));
-                }
-                request.setAttribute("usuariomodificado", usuario);
+                String IdModificar = request.getParameter("Id");
+                Usuario usuarioModificar=usuarioDAO.consultarUsuario(IdModificar);
+                request.setAttribute("usuariomodificado", usuarioModificar);
                 request.getRequestDispatcher("SvUsuario?Op=Listar").forward(request, response);
-            } catch (SQLException ex) {
-                System.out.println("Error de SQL..." + ex.getMessage());
-            } finally {
-                conexion.Discconet();
-            }
-            break;
+                break;
             case "Eliminar":
-                try {
-                String Id = request.getParameter("Id");
-                String sql = "delete from usuario where ID=?";
-                ps = conn.prepareStatement(sql);
-                ps.setString(1, Id);
-                ps.executeUpdate();
+                String IdElimiar = request.getParameter("Id");
+                usuarioDAO.eliminarUsuario(IdElimiar);
                 request.getRequestDispatcher("SvUsuario?Op=Listar").forward(request, response);
-            } catch (SQLException ex) {
-                System.out.println("Error de SQL..." + ex.getMessage());
-            } finally {
-                conexion.Discconet();
-            }
+         
             break;
 
         }
+         usuarioDAO.cerrarConexion();
 
     }
 
@@ -135,76 +77,16 @@ public class SvUsuario extends HttpServlet {
         usuario.setNombre(Nombre);
         usuario.setContrasena(Contrasena);
         usuario.setIngreso(Ingreso);
-        ConexionBD conexion = new ConexionBD();
-        Connection conn = conexion.Connected();
-        PreparedStatement ps;
-        ResultSet rs;        
+        UsuarioDao usuarioDAO = new UsuarioDao(); 
         
         if(Id.isEmpty()){
-            String sql_new="select max(ID) ID from usuario";
-            String sql="insert into usuario(ID, NOMBRE, INGRESO, CONTRASENA) values(?, ?, ?, ?)";
-
-            try{
-                /*Algoritmo para autogenerar el código*/
-                String idUsuario = "";
-                ps = conn.prepareStatement(sql_new);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    idUsuario = rs.getString("ID");
-                }
-
-                idUsuario = newCod(idUsuario);
-                ps = conn.prepareStatement(sql);
-                ps.setString(1, idUsuario);
-                ps.setString(2, usuario.getNombre());
-                ps.setString(3, usuario.getIngreso());
-                ps.setString(4, usuario.getContrasena());
-                ps.executeUpdate();
-
-            } catch (SQLException ex) {
-                System.out.println("Error actualizando tabla..." + ex.getMessage());
-            } finally {
-                conexion.Discconet();
-            }
+            usuarioDAO.crearUsuario(usuario);
         } else {
-            String sql = "update usuario set NOMBRE=?, INGRESO=?, CONTRASENA=? where ID=?";
-
-            try {
-                ps = conn.prepareStatement(sql);
-                ps.setString(1, usuario.getNombre());
-                ps.setString(2, usuario.getIngreso());
-                ps.setString(3, usuario.getContrasena());
-                ps.setString(4, usuario.getId());
-                ps.executeUpdate();
-            } catch (SQLException ex) {
-                System.out.println("Error actualizando tabla..." + ex.getMessage());
-            } finally {
-                conexion.Discconet();
-            }
+            usuarioDAO.actualizarUsuario(usuario);
         }
-
+        usuarioDAO.cerrarConexion();
         response.sendRedirect("SvUsuario?Op=Listar");
 
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-    private String newCod(String pCodigo) {
-        if (pCodigo != null) {
-            int Numero = Integer.parseInt(pCodigo.substring(2));
-            Numero = Numero + 1;
-            pCodigo = String.valueOf(Numero);
-            while (pCodigo.length() < 5) {
-                pCodigo = '0' + pCodigo;
-            }
-            pCodigo = 'C' + pCodigo;
-            return pCodigo;
-        } else {
-            return "C00001";
-        }
     }
 
 }
